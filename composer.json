@@ -1,0 +1,20 @@
+{
+    "name": "voltio/php-localise",
+    "type": "library",
+    "description": "A PHP library to parse street addresses to localized formats",
+    "homepage": "https://voltiosoft.com",
+    "keywords": ["localise", "localize", "php", "i18n", "google", "api", "address", "format"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Voltio",
+            "homepage": "http://voltiosoft.com"
+        }
+    ],
+    "require": {
+        "php":             ">=5.3.2"
+    }
+    "autoload": {
+        "psr-4": { "Voltio\\": "lib/" }
+    }
+}
