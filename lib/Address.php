@@ -64,8 +64,10 @@ class Address
         foreach ($this->locale as $key => $value) {
             if ($end = strpos($key, '_name_type', 2)) {
                 $field = substr($key, 0, $end);
-                $map[$value] = $map[isset($this->map[$field]) ? $this->map[$field] : $field];
-                unset($map[$field]);
+                if ($value !== $field) {
+                    $map[$value] = $map[isset($this->map[$field]) ? $this->map[$field] : $field];
+                    unset($map[$field]);
+                }
             }
         }
         $map = array_flip($map);
@@ -102,17 +104,31 @@ class Address
         return $meta;
     }
 
+    public function getCountryCodes()
+    {
+        $countries = include __DIR__ . '/countries.php';
+        return array_keys($countries);
+    }
+
     public function getCountryName($code = null)
     {
         if (is_null($code) && $this->locale) {
-            return $this->locale['name'];
+            $code = $this->locale['key'];
+        }
+
+        $metaFile = __DIR__ . '/i18n/meta.json';
+        if (file_exists($metaFile)) {
+            $meta = json_decode(file_get_contents($metaFile), true);
+            if (isset($meta[$code])) {
+                return $meta[$country];
+            }
         }
 
         $file = __DIR__ . '/i18n/' . strtoupper($code) . '.json';
         if (file_exists($file)) {
             $meta = json_decode(file_get_contents($file), true);
             if (is_array($meta)) {
-                return $meta['name'];
+                return ucwords(strtolower($meta['name']));
             } else {
                 throw new \Exception();
             }
@@ -153,7 +169,7 @@ class Address
             $required = isset($this->locale['fmt']) ? str_split($this->locale['require']) : array();
             foreach($address_format_array as $key => $value )
             {
-                $value = trim($value);
+                $value = substr($value, 0, 1);
                 if(!empty($value) && isset($this->map[$value]))
                 {
                     $return[]= array(
@@ -166,6 +182,25 @@ class Address
         } else {
             throw new \Exception();
         }
+    }
+
+    public function getPostalCodeFieldName()
+    {
+        return $this->locale['zip_name_type'];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValidPostalCode($address) // TODO: test and extend to support subdivisions
+    {
+        $fullPattern = $this->locale['zip'];
+        $field = $this->locale['zip_name_type'];
+        preg_match('/' . $fullPattern . '/i', $address[$field], $matches);
+        if (empty($matches[0]) || $matches[0] != $address[$field]) {
+            return false;
+        }
+        return true;
     }
 
     /**
