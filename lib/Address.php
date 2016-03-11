@@ -116,11 +116,13 @@ class Address
             $code = $this->locale['key'];
         }
 
+        $code = strtoupper($code);
+
         $metaFile = __DIR__ . '/i18n/meta.json';
         if (file_exists($metaFile)) {
             $meta = json_decode(file_get_contents($metaFile), true);
             if (isset($meta[$code])) {
-                return $meta[$country];
+                return $meta['country'];
             }
         }
 
@@ -150,6 +152,9 @@ class Address
             }
 
             $formatted_address = preg_replace('((\%n)+)', '%n', $formatted_address);
+            if (strpos($formatted_address, '%n') === 0) {
+                $formatted_address = substr($formatted_address, 2);
+            }
 
             if ($delimiter) {
                 return trim(str_replace('%n', $delimiter, $formatted_address));
@@ -190,6 +195,7 @@ class Address
     }
 
     /**
+     * @param array $address
      * @return bool
      */
     public function isValidPostalCode($address) // TODO: test and extend to support subdivisions
