@@ -1,1 +1,1 @@
-{"key": "AI", "zipex": "2640", "id": "data/AI", "zip": "2640", "name": "ANGUILLA"}
+{"zipex": "2640", "name": "ANGUILLA", "zip": "(?:AI-)?2640", "fmt": "%N%n%O%n%A%n%C%n%Z", "key": "AI", "id": "data/AI"}

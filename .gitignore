@@ -1,2 +1,5 @@
 #Composer folder and files
 vendor/
+
+# PHPStorm
+.idea/

@@ -1,1 +1,1 @@
-{"zipex": "0083,1451,0001", "key": "ZA", "zip": "\\d{4}", "fmt": "%N%n%O%n%A%n%D%n%C%n%Z", "id": "data/ZA", "posturl": "http://www.postoffice.co.za/tools/postalcode.html", "require": "ACZ", "name": "SOUTH AFRICA"}
+{"key": "ZA", "zipex": "0083,1451,0001", "name": "SOUTH AFRICA", "zip": "\\d{4}", "require": "ACZ", "id": "data/ZA", "posturl": "http://www.postoffice.co.za/tools/postalcode.html", "fmt": "%N%n%O%n%A%n%D%n%C%n%Z"}

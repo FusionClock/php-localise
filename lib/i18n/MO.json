@@ -1,1 +1,1 @@
-{"name": "MACAO", "require": "A", "id": "data/MO", "lfmt": "%N%n%O%n%A", "key": "MO", "fmt": "%A%n%O%n%N"}
+{"name": "MACAO", "require": "A", "fmt": "%A%n%O%n%N", "lfmt": "%N%n%O%n%A", "key": "MO", "id": "data/MO"}
